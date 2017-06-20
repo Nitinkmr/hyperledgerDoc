@@ -1,33 +1,86 @@
-# Project Title
-
-One Paragraph of project description goes here
+# HyperLedgerDoc
+Installation instructions for hyperledger composer and for deploying a .BNA file
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Things you need to install and how to install them
 
 ```
-Give examples
+Operating System: Ubuntu Linux 14.04 / 16.04 LTS (both 64-bit) (or a VM with same configuration)
+Docker Engine: Version 17.03 or higher
+Docker-Compose: Version 1.8 or higher
+Node: 6.x (note version 7 is not supported)
+npm: 3.10.x
+git: 2.9.x
 ```
 
-### Installing
+### Installing hyperledger composer
 
-A step by step series of examples that tell you have to get a development env running
+A step by step series of commands that tell you have to get a development env running
 
-Say what the step will be
+Download all the prerequisites using the following command
+```
+curl -O https://raw.githubusercontent.com/hyperledger/composer-sample-applications/master/packages/getting-started/scripts/prereqs-ubuntu.sh
+
+chmod u+x prereqs-ubuntu.sh
+```
+once downloaded, just run the below script
+```
+./prereqs-ubuntu.sh
+```
+# Now download the development tools:
 
 ```
-Give the example
+npm install -g composer-cli
+npm install -g generator-hyperledger-composer
+npm install -g composer-rest-server
+npm install -g yo
+```
+# Starting Hyperledger Fabric:
+
+```
+docker kill $(docker ps -q)
+docker rm $(docker ps -aq)
+docker rmi $(docker images dev-* -q)
+```
+In a directory of your choice,(In a directory of your choice (will assume ~/fabric-tools) get the zip file that contains the tools)
+
+```
+mkdir ~/fabric-tools && cd ~/fabric-tools
+
+curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.zip
+unzip fabric-dev-servers.zip
+
+```
+export the fabric version (we are using V1)
+
+```
+export FABRIC_VERSION=hlfv1
 ```
 
-And repeat
+Now are fabric resides in ~/fabric-tools
+To start hyperledger composer issue following commands:
 
 ```
-until finished
+cd ~/fabric-tools
+./downloadFabric.sh
+./startFabric.sh
+./createComposerProfile.sh
+```
+
+And to stop hyperledger composer issue following commans:
+```
+cd ~/fabric-tools
+./stopFabric.sh
+./teardownFabric.sh
+```
+
+
+```
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
