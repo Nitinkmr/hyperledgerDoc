@@ -88,7 +88,7 @@ Now we have succesfully installed hyperledger composer.
 
 ## Deploying a business network archive file (.BNA) to the running hyperledger fabric instance
 
-You can code any business logic on the [playground] (https://composer-playground.mybluemix.net) and simply export the .bna file by clicking on the export button on the bottom left side of the screen.
+You can code any business logic on the [playground](https://composer-playground.mybluemix.net) and simply export the .bna file by clicking on the export button on the bottom left side of the screen.
 extract the obtained .bna file to any directory of your choice (assuming ~/my-network)
 Once you have a .bna file follow these steps:
 
