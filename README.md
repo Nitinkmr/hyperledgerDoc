@@ -63,78 +63,79 @@ export FABRIC_VERSION=hlfv1
 ```
 
 Now are fabric resides in ~/fabric-tools
-To start hyperledger composer issue following commands:
+To start Fabric issue following commands:
+(if this is the first time, you'll need to download the fabric first else you can skip the below command)
+```
+./downloadFabric.sh
+```
+Once download has completed, issue the followind commands (again, ensure that you change directory to the one where you have installed fabric)
 
 ```
 cd ~/fabric-tools
-./downloadFabric.sh
 ./startFabric.sh
 ./createComposerProfile.sh
 ```
 
-And to stop hyperledger composer issue following commans:
+And to stop Fabric issue following commans:
 ```
 cd ~/fabric-tools
 ./stopFabric.sh
 ./teardownFabric.sh
 ```
+Now we have succesfully installed hyperledger composer.
 
+
+
+## Deploying a business network archive file (.BNA) to the running hyperledger fabric instance
+
+You can code any business logic on the [hyperledger composer playground] (https://composer-playground.mybluemix.net) and simply export the .bna file by clicking on the export button on the bottom left side of the screen.
+extract the obtained .bna file to any directory of your choice (assuming ~/my-network)
+Once you have a .bna file follow these steps:
+
+
+ensure that your fabric instance is running, if not run the following command:
+(again make sure that you change directory to where you have installed the fabric earlier)
+```
+ cd ~/fabric-tools/
+	./startFabric.sh
 
 ```
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+once your fabric has started succesfully
 
 ```
-Give an example
+cd ~/my-network/
 ```
-
-### And coding style tests
-
-Explain what these tests test and why
+now install the npm dependencies from the package.json file by running:
+(this needs to be done only when you have obtained a new .bna file or if there is a change in package.json file)
 
 ```
-Give an example
+npm install
 ```
 
-## Deployment
+create an archive file in /dist folder:
 
-Add additional notes about how to deploy this on a live system
+```
+composer archive create -a dist/basic-sample-network.bna --sourceType dir --sourceName .
+```
+check that you have a  basic-sample-network.bna file inside the dist folder in your working directory.
 
-## Built With
+time to deploy the .bna file to the hyperledger fabric
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+```
+cd dist/
 
-## Contributing
+composer network deploy -a basic-sample-network.bna -p hlfv1 -i PeerAdmin -s randomString
+```
+your .bna file has been deployed to the fabric instance and now we just need to expose it as a REST API, for that execute the following command:
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+```
+cd ..
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+composer-rest-server -p hlfv1 -n basic-sample-network -i admin -s adminpw -N never
+```
+ 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Nitin Kumar** - *Initial work* - [Nitinkmr](https://github.com/Nitinkmr)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
