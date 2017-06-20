@@ -20,7 +20,7 @@ git: 2.9.x
 
 ### Installing hyperledger composer
 
-A step by step series of commands that tell you have to get a development env running
+A step by step series of commands that tell you how to get a development env running
 
 Download all the prerequisites using the following command
 ```
@@ -47,7 +47,7 @@ docker kill $(docker ps -q)
 docker rm $(docker ps -aq)
 docker rmi $(docker images dev-* -q)
 ```
-In a directory of your choice,(In a directory of your choice (will assume ~/fabric-tools) get the zip file that contains the tools)
+In a directory of your choice (will assume ~/fabric-tools) get the zip file that contains the tools
 
 ```
 mkdir ~/fabric-tools && cd ~/fabric-tools
@@ -62,7 +62,7 @@ export the fabric version (we are using V1)
 export FABRIC_VERSION=hlfv1
 ```
 
-Now are fabric resides in ~/fabric-tools
+Now our fabric resides in ~/fabric-tools
 To start Fabric issue following commands:
 (if this is the first time, you'll need to download the fabric first else you can skip the below command)
 ```
@@ -88,16 +88,16 @@ Now we have succesfully installed hyperledger composer.
 
 ## Deploying a business network archive file (.BNA) to the running hyperledger fabric instance
 
-You can code any business logic on the [playground](https://composer-playground.mybluemix.net) and simply export the .bna file by clicking on the export button on the bottom left side of the screen.
-extract the obtained .bna file to any directory of your choice (assuming ~/my-network)
+You can code any business logic on the [Hyperledger composer playground](https://composer-playground.mybluemix.net) and simply export the .bna file by clicking on the export button on the bottom left side of the screen.
+extract the obtained .bna file to any directory of your choice (assuming ~/my-network).
 Once you have a .bna file follow these steps:
 
 
-ensure that your fabric instance is running, if not run the following command:
+ensure that your fabric instance is running, if not then run the following command:
 (again make sure that you change directory to where you have installed the fabric earlier)
 ```
  cd ~/fabric-tools/
-	./startFabric.sh
+./startFabric.sh
 
 ```
 once your fabric has started succesfully
